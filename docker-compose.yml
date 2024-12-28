@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  jekyll:
+    build: .  # Utilise le Dockerfile du répertoire actuel
+    ports:
+      - "4000:4000"  # Mappe le port 4000 du conteneur au port 4000 de l'hôte
+    volumes:
+      - .:/usr/src/app  # Monte le répertoire local dans le conteneur
+    working_dir: /usr/src/app  # Définit le répertoire de travail dans le conteneur
+    environment:
+      - JEKYLL_ENV=development  # Optionnel : définissez l'environnement
+    command: ["bundle", "exec", "jekyll", "serve", "--host", "0.0.0.0", "--watch", "--drafts"]  # Commande pour démarrer le serveur
+    networks:
+      - jekyll-network
+
+networks:
+  jekyll-network:
+    driver: bridge
