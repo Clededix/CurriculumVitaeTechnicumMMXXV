@@ -72,4 +72,18 @@ changement pour Github Pages (je voudrais tester)
 ##"Creation" de Github pages pour mon repo :
 Sur Github > repo concerné > Settings > Pages etc
 
+Ne fonctionne pas (je reçois un mail de Github me l'indiquant)
+Recherche du problème :
 
+Peut etre est-ce dû à une diff entre repo local et distant
+Tentives de résolution :
+- mauvaise config du git ignore : ajout de / à la fin d'une ligne de gitignore (dossier)
+- suppression manuelle du dossier Jekyll (push avant que je l'indique dans le gitignore) puis commit puis push
+- vide cash Git avec git rm -r --cached .
+- vérification si le dossier est bien ignoré avec 
+git check-ignore -v nom_du_dossier
+Cela fonctionne car :
+.gitignore:3:nom_du_dossier/
+gitignore : règle provient de gitignore
+3 : num de ligne
+nom_ddosier
