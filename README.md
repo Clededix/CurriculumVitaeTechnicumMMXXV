@@ -92,3 +92,29 @@ Le problème persiste :
 ## Ajout d'un sous module
 = dépot Git imbriqué à l'int d un autre dépot
 Les sous-modules sont utilisés pour inclure des bibliothèques ou des dépendances externes dans un projet sans les copier directement
+
+
+___________ 07 01 25
+J'ai déplacé avec l expl W le dossier du pr Jekyll
+
+Je vais finalement plutot utiliser ce depo : 
+https://github.com/mmistakes/minimal-mistakes
+
+Reprise de l'utilisation de Docker en vue du téléchargement du pr Jekyll Github
+
+/*cd dans Bash : change directory
+
+Clonage du nouveau repo Jekyll minimal
+
+Fichier Dockerfile : OK
+
+## Construction image Docker
+cd repo du pr Jekyll (là où gemfile)
+bundle install
+docker build -t mon_site_jekyll .
+erreurs de versions (gem) et de contenu dans Gemfile
+
+## Lancer le conteneur Docker
+
+je voudrais enregistrer et utiliser un repo Jekyll dans un container docker, peux tu me guider
+le repo Jekyll est issu d un compte github, il est préexistant
