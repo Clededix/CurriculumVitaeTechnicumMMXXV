@@ -87,3 +87,8 @@ Cela fonctionne car :
 gitignore : règle provient de gitignore
 3 : num de ligne
 nom_ddosier
+
+Le problème persiste :
+## Ajout d'un sous module
+= dépot Git imbriqué à l'int d un autre dépot
+Les sous-modules sont utilisés pour inclure des bibliothèques ou des dépendances externes dans un projet sans les copier directement
