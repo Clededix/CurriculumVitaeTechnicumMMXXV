@@ -224,6 +224,40 @@ Modification du fichier 'default' dans _layouts : ajout de la logique de paginat
 
 Commit
 
+## Lancement du site
+via Localhost, je tombe toujours sur 'Index of'
+
+Donc on va tout revérifier :
+
+- Jekyll a t il généré le site ?
+avec
+docker run --rm -p 4000:4000 -v $(pwd):/srv/jekyll minimal-mistakes bundle exec jekyll build
+Toujours ce problème de port :
+Error response from daemon: driver failed programming external connectivity on endpoint determined_poincare (c2eca557afdc51b702db4d98af14dc3b1ba57a7286f84e4b5a9d62c263f7b178): Bind for 0.0.0.0:4000 failed: port is already allocated.
+
+Je le change sur Docker, en prenant le 4002 :
+docker run --rm -p 4002:4000 -v $(pwd):/srv/jekyll minimal-mistakes bundle exec jekyll build
+avec
+	docker run : Exécute une commande dans un conteneur Docker
+	--rm : Supprime automatiquement le conteneur lorsque l'exécution est terminée
+	-p 4002:4000 : Mappe le port 4000 à l'intérieur du conteneur au port 4002 sur votre machine locale. Cela signifie que si le serveur Jekyll tourne dans le conteneur sur le port 4000, vous pouvez y accéder sur votre machine locale via le port 4002.
+	-v $(pwd):/srv/jekyll : Crée un volume Docker, qui monte le répertoire courant de votre machine locale ($(pwd)) dans le conteneur au chemin /srv/jekyll. Cela permet de travailler sur les fichiers de votre site Jekyll localement tout en étant dans le conteneur.
+	minimal-mistakes : Le nom de l'image Docker utilisée 
+	bundle exec jekyll build : Exécute la commande Jekyll pour construire votre site. Le site sera généré dans le répertoire _site à l'intérieur du conteneur.
+
+	/* Quelle différence entre 
+	//docker run --rm -p 4002:4000 -v $(pwd):/srv/jekyll minimal-mistakes bundle exec jekyll build
+	et //docker run --rm -p 4002:4000 -v $(pwd):/srv/jekyll minimal-mistakes bundle exec jekyll serve ?
+		== utilisation de la mm image Docker
+		== mm loc du repo
+		== --rm conteneur sera supprimé
+		!= jekyll build : génère site statique à partir de fichiers source
+		!= jekyll serve : démarre un server local qui héberge le site Jekyll
+							généralement sur le port 4000, ce qui permet de voir le site en temps réel dans un navigateur à l'adresse http://localhost:4002 (grâce au mappage des ports avec -p 4002:4000).
+							Rechargement en direct : Le serveur va également surveiller les fichiers sources, il régénérera le site et le rechargera automatiquement dans le navigateur.
+
+
+
 
 
 
