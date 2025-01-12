@@ -114,7 +114,81 @@ bundle install
 docker build -t mon_site_jekyll .
 erreurs de versions (gem) et de contenu dans Gemfile
 
+__________________________11 01 25
+
 ## Lancer le conteneur Docker
 
-je voudrais enregistrer et utiliser un repo Jekyll dans un container docker, peux tu me guider
-le repo Jekyll est issu d un compte github, il est préexistant
+En me déplaçant dans le dossier contenant le pr Jekyll, je me retrouve dans une branche master. 
+Je l'ai renommée en 'main' avec :
+git branch -m master main
+MAJ Github, bien se mettre dans le dossier parent sinon le push essaie d 'accéder au repo du pr Jekyll
+(donc celui de l'auteur.e)
+
+Se replacer dans le dossier contenant le pr Jekyll.
+
+/*HEAD : branche courante
+
+L'image du conteneur a été créée. On va pvr exécuter le prog Jekyll dans un conteneur avec :
+docker run --rm -p 4000:4000 -v $(pwd):/srv/jekyll minimal-mistakes
+	avec :
+	--rm 					Suppr conteneur qd il arrête de fonctionner
+	-p 4000:4000  			Mappe le port 4000 du conteneur au port 4000 de mon PC machine
+							ce qui me permettra d'accéder au site Jekyll via http://localhost:4000
+	-v $(pwd):/srv/jekyll	Monte le repo de pr local dans le conteneur à l'emplacement /srv/jekyll
+							ce qui permet à Docker d'accéder et de modifier mes fichiers locaux
+	minimal-mistakes 		Le nom de l'image Docker à exécuter
+
+	Bash me renvoit cette erreur :
+	docker: invalid reference format: repository name (library/perso\site-web-cv;C) must be lowercase.
+	L'erreur lowercase inclut aussi les espaces dans les noms de dossier !!
+
+## Construction de l image Docker
+
+docker build -t minimal-mistakes .
+	docker build : construit une imge Docker à partir du dockerfile présent
+	-t minimal-mistakes : futur nom de l img construite
+	. : répo courant
+
+/* .. : repo parent du repo courant
+tag : nom
+
+Image bien présente dans le repo, vérif avec
+docker images	//liste tous les fichiers docker de mon système
+
+## Execution du conteneur Docker avec l img créée 
+docker run --rm -p 4000:4000 -v $(pwd):/srv/jekyll minimal-mistakes
+
+server accessible à 
+http://localhost:4000
+
+Côté Docker Desktop, un container est apparu
+
+/* fonctionnement de Docker et des containers :
+	docker engine : c'est le moteur : crée, exécute, modifie, gère les conteneurs
+	conteneur : léger, isolé, permet de faire fonctionner des prog
+				contient tout le nécessaire : syst d'expl, bibli...
+	images Docker : ~class.java, modèle, plan...
+	Docker Hub : service similaire à Github pour stock & partage d'images Docker
+	Docker Desktop Interface : GUI, complète le CLI
+								visualisation, gestion et inspection des conteneurs
+	Docker Compose : permet d'utiliser plusieurs conteneurs en mm temps 
+	WSL 2 : Windows Subsystem for Linux, moteur de virtualisation Linux pour W
+			plus rapide et plus léger
+	
+	quelques cmdes CLI
+		docker ps			Liste des conteneurs en cours d'exécution
+		docker ps -a 		ous les conteneurs mm ceux pas en cours d'exécution
+		docker start <nom_conteneur> Démarre un conteneur arrêté
+
+## Lancement du pr Jekyll de base
+docker-compose up
+mais erreur 
+no configuration file provided: not found
+Il manque un fichier essentiel pour le fonctionnement de docker compose :
+docker-compose.yml
+Je le crée
+
+MAJ Github commit
+
+
+
