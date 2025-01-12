@@ -205,6 +205,25 @@ C'est bien Docker et WSL.
 /* PID : un ID unique de processus affecté à chaq prog
 wslrelay.exe = WSL
 
+Je change donc le port "4001:4000" dans le fichier docker-compose.yml
+
+/*mappage de ports entre le conteneur Docker et l'hôte.
+    4001 est le port de l'hôte (mon PC) via lequel je peux accéder au service exécuté dans le conteneur
+    4000 est le port à l'intérieur du conteneur, celui sur lequel le service à l'intérieur du conteneur écoute */
+
+	Relance de Docker compose :
+	docker-compose up
+erreur
+Dependency Error: Yikes! It looks like you don't have jekyll-paginate or one of its dependencies installed.
+J'ajoute la gem jekyll-paginate à mon fichier gemfile (root) :
+gem 'jekyll-paginate'
+Ensuite j'installe les dépendances qui me manquent avec
+bundle install
+Vérification de la config de la pagination dans _config.yml
+Modification du fichier 'default' dans _layouts : ajout de la logique de pagination
+
+Commit
+
 
 
 
