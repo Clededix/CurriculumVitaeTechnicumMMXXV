@@ -188,7 +188,25 @@ Il manque un fichier essentiel pour le fonctionnement de docker compose :
 docker-compose.yml
 Je le crée
 
-MAJ Github commit
+MAJ Github commit du ..
+
+docker-compose up
+erreur
+Error response from daemon: driver failed programming external connectivity on endpoint [blabla] for 0.0.0.0:4000 failed: port is already allocated
+
+Donc mon port :4000 est déjà en cours d'utilisation (par Docker ?)
+On va vérifier qui l'utilise.
+Power Shell : netstat -ano | findstr :4000
+Liste des processus utilisant le port 4000 : 2x 11520 et 1x 7412
+Pour les identifier :
+tasklist /fi "PID eq [blabla]"
+C'est bien Docker et WSL.
+
+/* PID : un ID unique de processus affecté à chaq prog
+wslrelay.exe = WSL
+
+
+
 
 
 
